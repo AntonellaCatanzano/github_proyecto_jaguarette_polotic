@@ -1,0 +1,42 @@
+{% extends 'jaguarettekaa/layout.html' %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12"> 
+                <div class="card py-3 m-5 border-5 shadow p-3 mb-5 bg-body rounded ">                 
+                    <form class="card-body bg-success" method="POST" action="{% url 'buscar_producto' %}">
+                   {% csrf_token %} 
+                        <h2 class="text-white p-2">Listado de Productos</h2>
+                        <hr class="text-white"/>
+                        <div class="d-flex m-3">
+                            <input class="form-control me-2" type="search" placeholder="Buscar Productos" aria-label="Buscar" value="{{ request.POST.buscar }}" name="buscar">                            
+                            <button class="btn btn-outline-warning btn-lg" type="submit">Buscar</button>
+                        </div>                 
+                    </form>
+                    <div class="card-body h-100 border border-success border-1 col-sm-12">
+                        {% if buscar %}
+                            <h5 class="text-secondary fw-bolder">Resultados de la Búsqueda para <small class="text-text-success fw-lighter"> "{{ buscar }}"</small></h5>
+                            <hr class="text-success"/>
+                            {% if lista_productos %}                                                    
+                                {% for p in lista_productos %}
+                                        <h5 class="mb-3 ms-5 me-5 mt-4"><a href="#"><i class="bi bi-skip-forward-circle-fill m-3"></i></a><strong>{{ p.titulo }}</strong></h5>
+                                        <p class="mb-0 text-truncate text-secondary W-100 ms-5 me-5"><i class="h5 bi bi-caret-right-fill text-success ms-5 me-2"></i>{{ p.descripcion }}</p>
+                                        <hr class="text-danger ms-5 me-5"/>
+                                {% endfor %}
+                                {% else %}
+                                    <h6 class="mb-3 ms-5 me-5 mt-4 text-danger text-center">"No se encuentran resultados para su búsqueda"</h6>
+                            {% endif %}                                                       
+                        {% else %}
+                            {% for s in productos %}
+                                <h5 class="mb-3 ms-5 me-5 mt-4"><a href="#"><i class="bi bi-skip-forward-circle-fill m-3"></i></a><strong>{{ s.titulo }}</strong></h5>
+                                <p class="mb-0 text-truncate text-secondary W-100 ms-5 me-5"><i class="h5 bi bi-caret-right-fill text-success ms-5 me-2"></i>{{ s.descripcion }}</p>
+                                <hr class="text-danger ms-5 me-5"/>
+                            {% endfor %}
+                    {% endif %}
+                    </div>           
+                </div>                      
+            </div>
+        </div>
+    </div>
+{% endblock %}

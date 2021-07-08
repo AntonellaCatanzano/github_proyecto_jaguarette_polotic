@@ -1,0 +1,46 @@
+{% extends 'jaguarettekaa/layout.html' %}
+
+{% load static %}
+
+{% block main_content %}
+
+    {% if form.errors %}
+        <p>El usuario y la clave no coinciden, por favor intente nuevamente.</p>
+    {% endif %}
+
+    <div class="form-signin my-5 shadow-lg p-3 mb-5 bg-body rounded">
+        
+            
+                <div class="mb-3 mt-5">
+                    <img class="img-fluid ounded mx-auto d-block" src="{% static 'jaguarettekaa/img/login.png' %}" alt="" width="200" height="200">
+                    <h2 class="text-center monospace text-success">LOGIN</h2>
+                </div>
+               <form action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+
+                    <div class="input-group justify-content-center">
+                        <div class="m-2">
+                            {{ form.username }}
+                        </div>
+                        <div class="m-2">    
+                            {{ form.password }}
+                           
+                       </div>
+                    </div>
+                    <div class="d-grid my-3">            
+                        <input type="submit" class="mt-3 btn btn-success" value="INICIAR SESIÓN" />
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    </div>
+                    
+                    
+                    </div>
+                </form>
+
+                {# Asume que configuras la vista password_reset en tu URLconf #}
+
+                <p><a href="{% url 'password_reset' %}">¿Olvidó su contraseña?</a></p>
+
+    </div>
+
+{% endblock %}
+

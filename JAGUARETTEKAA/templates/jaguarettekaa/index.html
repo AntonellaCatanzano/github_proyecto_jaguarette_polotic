@@ -1,0 +1,52 @@
+{% extends 'jaguarettekaa/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block main_content %}      
+    <div class="col-md-12 col-lg-12">
+        <div class="row row-cols-1 row-cols-md-3 g-4 p-5 m-2">
+            {% for p in productos %}
+                <div class="card-group">
+                    <div class="card text-center shadow p-3 mb-5 bg-body rounded">
+                        <div class="card-header fw-lighter text-white bg-dark bg-gradient">
+                                {{ p.categoria }}
+                        </div>  
+                        {% if p.imagen %}
+                            <img src="{{ p.imagen.url }}" class="card-img-top img-fluid" alt="...">
+                        {% endif %}    
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title">{{ p.titulo | title }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{ p.descripcion | capfirst }}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-primary fw-bolder">$ {{ p.precio | intcomma}}</li>                                                                        
+                        </ul>
+                        <div class="card-body">
+                            <a href="" class="card-link btn btn-secondary btn-lg text-white text-center">Ver Más</a>                                    
+                        </div>                            
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>  
+    <section class="container-fluid col-ms-12 col-sm-12">
+        <div class="row">        
+            <div class="p-3 mb-0 bg-dark">
+                <div class="h-100 py-5 px-5">
+                    <h2 class="text-center text-white">Más Productos</h2>                    
+                </div>
+            </div>                
+        </div>
+        <div class="row">
+            <div class="p-5 bg-white">        
+                {% for s in productos_secundarios %}                                                
+                    <h5 class="mb-3 ms-5 me-5"><a href="#"><i class="bi bi-skip-forward-circle-fill m-3"></i></a>{{ s.titulo }}:</strong></h5>                  
+                    <p class="mb-0 text-truncate text-secondary W-100 ms-5 me-5"><i class="h5 bi bi-caret-right-fill text-success ms-5 me-2"></i>{{ s.descripcion }}</p>
+                    <hr class="text-danger ms-5 me-5"/>                   
+                {% endfor %}             
+            </div>
+        </div>
+    </section> 
+  
+{% endblock %}
