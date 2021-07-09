@@ -1,3 +1,67 @@
+{% extends 'jaguarettekaa/layout.html' %}
+{% load static %}
+
+{% block navbar %}
+<ul class="navbar-nav">
+    <li class="nav-item">                    
+        <a class="nav-link text-info fw-bolder text-center" aria-current="page" href="{% url 'index'  %}">Home</a>
+    </li>
+    <li class="nav-item ms-2">
+        <a class="nav-link text-info fw-bolder text-center" href="{% url 'acerca_de' %}">Acerca De</a>
+    </li>                    
+    <li class="nav-item ms-2 dropdown">
+        <a class="nav-link text-info fw-bolder text-center dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Categorías</a>
+        <ul class="dropdown-menu bg-light mb-0 border-0" aria-labelledby="navbarDropdown">
+        {% for categoria in menu_categorias %}                        
+            <li class="text-info text-center"><a class="dropdown-item text-info p-2 fw-bolder" href="#">{{ categoria }}</a></li>
+            <li class="text-primary mb-0"><hr class="dropdown-divider"></li>              
+        {% endfor %}                                                
+        </ul>
+    </li>
+    <li class="nav-item ms-2">
+        <a class="nav-link fw-bolder text-center bg-info text-white active" href="{% url 'productos' %}">Productos</a>
+    </li>
+    <li class="nav-item  ms-2">
+        <a class="nav-link text-info fw-bolder text-center" href="mailto:antogenia7@hotmail.com">Contacto</a>
+    </li>                    
+</ul>
+{% endblock %}
+
+{% load humanize %}
+
+{% block main_content %}      
+    <div class="col-md-12 col-lg-12">
+        <div class="row row-cols-1 row-cols-md-3 g-4 p-5 m-2">
+            {% for g in galeria_productos %}
+                <div class="card-group">
+                    <div class="card text-center shadow p-3 mb-5 bg-body rounded">
+                        <div class="card-header fw-lighter text-white bg-dark bg-gradient">
+                                {{ g.categoria }}
+                        </div>  
+                        {% if g.imagen %}
+                            <img src="{{ g.imagen.url }}" class="card-img-top img-fluid" alt="...">
+                        {% else %}
+                            <img src="{% static 'jaguarettekaa/img/producto-vacio.png'  %}" class="card-img-top img-fluid" alt="...">
+                        {% endif %}    
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title">{{ g.titulo | title }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{ g.descripcion | capfirst }}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-primary fw-bolder">$ {{ g.precio | intcomma}}</li>                                                                        
+                        </ul>                                         
+                        <a href="" class="card-link btn btn-secondary btn-lg text-white text-center mt-4">Ver Más</a>
+                        <a href="{% url 'carrito' %}" class="card-link btn btn-info btn-lg text-white text-center mt-3 mx-0 mb-1">Agregar al Carrito</a>                     
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>   
+{% endblock %}
+
+
 <!doctype html>
 <html lang="en">
 <head>    

@@ -101,6 +101,9 @@ body {
   .fw-semibold { font-weight: 600; }
   .lh-tight { line-height: 1.25; }
 
+  main > .container {
+    padding: 60px 15px 0;
+  }
 
 
 

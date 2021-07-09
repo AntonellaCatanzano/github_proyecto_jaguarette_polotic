@@ -40,7 +40,19 @@ def logout(request):
     return render(request, 'JAGUARETTEKAA/logout.html')
 
 def productos(request):
-    return render(request, 'JAGUARETTEKAA/productos.html')
+    galeria_productos = Producto.objects.all()
+    data = {
+        'galeria_productos': galeria_productos,              
+    }
+
+    return render(request, 'JAGUARETTEKAA/productos.html', data)
+
+def detalle_producto(request):
+    galeria_productos = Producto.objects.all()
+    data = {
+        'galeria_productos': galeria_productos,              
+    }
+    return render(request, 'JAGUARETTEKAA/productos.html', data)
 
 @permission_required('jaguarettekaa.add_producto')
 def agregar_producto(request):    
