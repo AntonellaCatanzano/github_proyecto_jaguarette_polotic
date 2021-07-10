@@ -51,10 +51,9 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item text-primary fw-bolder">$ {{ g.precio | intcomma}}</li>                                                                        
-                        </ul>                                         
-                        <a href="{%  %}" class="card-link btn btn-secondary btn-lg text-white text-center mt-4">Ver Más</a>
+                        </ul>                                                                 <a href="{%  %}" class="card-link btn btn-secondary btn-lg text-white text-center mt-4">Ver Más</a>
                         <a href="{% url 'carrito' %}" class="card-link btn btn-info btn-lg text-white text-center mt-3 mx-0 mb-1">Agregar al Carrito</a>                     
-                    </div>
+                    </div>                    
                 </div>
             {% endfor %}
         </div>
