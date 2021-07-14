@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib import messages
 from .forms import *
 from .models import Producto, Categoria
-from .forms import FormProducto
+from .forms import FormProducto, RegistroForm
 from django.shortcuts import get_list_or_404
 from django.db.models import Q
 
@@ -31,7 +31,18 @@ def contacto(request):
     return render(request, 'JAGUARETTEKAA/contacto.html')
 
 def registro(request):
-    return render(request, 'JAGUARETTEKAA/registro.html')
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            form.save() 
+            messages.success(request, "El Usuario se ha registrado correctamente")         
+            return HttpResponseRedirect(reverse('login'))
+    else:
+        form = RegistroForm()      
+
+    return render(request, 'JAGUARETTEKAA/registro.html', {
+        'form': form
+    })
 
 def login(request):
     return render(request, 'JAGUARETTEKAA/login.html')
@@ -47,12 +58,8 @@ def productos(request):
 
     return render(request, 'JAGUARETTEKAA/productos.html', data)
 
-def detalle_producto(request):
-    galeria_productos = Producto.objects.all()
-    data = {
-        'galeria_productos': galeria_productos,              
-    }
-    return render(request, 'JAGUARETTEKAA/productos.html', data)
+def detalle_producto(request):  
+    return render(request, 'JAGUARETTEKAA/detalle_producto.html')
 
 @permission_required('jaguarettekaa.add_producto')
 def agregar_producto(request):    
@@ -62,7 +69,7 @@ def agregar_producto(request):
     if request.method == "POST":
        #user = User.objects.get(username=request.user)
        form = FormProducto(data=request.POST, files=request.FILES)
-       if form.is_valid():
+       if form.is_valid():            
             form.save()
             messages.success(request, "El Producto se ha agregado correctamente")           
        else:

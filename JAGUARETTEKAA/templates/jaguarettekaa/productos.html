@@ -36,7 +36,7 @@
                 <div class="card-group">
                     <div class="card text-center shadow p-3 mb-5 bg-body rounded">
                         <div class="card-header fw-lighter text-white bg-dark bg-gradient">
-                                {{ g.categoria }}
+                            {{ g.categoria }}
                         </div>  
                         {% if g.imagen %}
                             <img src="{{ g.imagen.url }}" class="card-img-top img-fluid" alt="...">
@@ -51,7 +51,8 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item text-primary fw-bolder">$ {{ g.precio | intcomma}}</li>                                                                        
-                        </ul>                                                                 <a href="{%  %}" class="card-link btn btn-secondary btn-lg text-white text-center mt-4">Ver Más</a>
+                        </ul>                                                                 
+                        <a href="{% url 'detalle_producto' %}" class="card-link btn btn-secondary btn-lg text-white text-center mt-4">Ver Más</a>
                         <a href="{% url 'carrito' %}" class="card-link btn btn-info btn-lg text-white text-center mt-3 mx-0 mb-1">Agregar al Carrito</a>                     
                     </div>                    
                 </div>

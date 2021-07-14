@@ -1,0 +1,54 @@
+{% extends 'jaguarettekaa/layout.html' %}
+
+{% load static %}
+
+{% block main_content %}
+    
+    <div class="form-signin my-5 shadow-lg p-3 mb-5 bg-body rounded">      
+        <div class="mb-3 mt-5">
+            <img class="img-fluid ounded mx-auto d-block" src="{% static 'jaguarettekaa/img/login.png' %}" alt="" width="200" height="200">
+            <h3 class="text-center monospace text-success">REGISTRO DE USUARIOS</h3>
+        </div>
+        <form action="{% url 'registro' %}" method="POST" class="was-validated" novalidate>
+            {% csrf_token %}
+            <div class="input-group justify-content-center">
+                <div class="m-2">                             
+                    {{ form.first_name }}                           
+                </div>
+                <div class="m-2">                           
+                    {{ form.last_name }}                           
+                </div>                                               
+                <div class="m-2">                       
+                    {{ form.username }}
+                </div>
+                <div class="m-2">                            
+                    {{ form.password1 }}                           
+                </div>                
+                <div class="m-2">                            
+                    {{ form.password2 }}                           
+                </div>                
+                
+                <div class="m-2">                          
+                    {{ form.email }}                           
+                </div>                         
+                <div class="d-grid my-3">            
+                    <input type="submit" class="mt-3 btn btn-success" value="REGISTRARSE" />                        
+                </div>            
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>    
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire({
+                    "title": "Usuario Registrado",
+                    "text": "{{ m }}",
+                    "icon": "success"
+                })
+            </script>
+        {% endfor %}
+    {% endif %}    
+{% endblock %}
